@@ -1,0 +1,530 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="page-title">Account Payable</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a [routerLink]="'/'">Dashboard</a></li>
+						<li class="breadcrumb-item"><a [routerLink]="'estimates'">Account Payable</a></li>
+						<li class="breadcrumb-item active">Add Account Payable</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+
+		<div class="row">
+			<div class="col-md-12">
+				<form  [formGroup]="apRequestForm" (ngSubmit)="onSubmit()">>
+					<div class="card">
+						<div class="card-body">
+
+							<h4 class="card-title">Beneficiary Details</h4>
+							<br />
+							<div class="row">
+								<div class="col-md-4">
+									<input type="checkbox" formControlName="isOTS">
+
+									<label style="margin-left: 1rem;">is Beneficiary OTS?</label>
+								</div>
+							</div>
+							<div class="row">
+
+								<!--<div class="col-md-4">
+												<input type="checkbox">
+												<br/>
+												<label>is Beneficiary OTS?</label>
+												
+												<div class="form-group">
+													 <label>Customer:</label>
+													<ng-select2  width="100%">
+													<option>Select Customer</option>
+													<option>Brian Johnson</option>
+													<option>Marie Canales</option>
+													<option>Barbara Moore</option>
+													<option>Greg Lynch</option>
+													<option>Karlene Chaidez</option>
+												    </ng-select2>
+												</div> 
+											</div>-->
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Name</label>
+										<div>
+											<input type="text" formControlName="beneficiaryName" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Address</label>
+										<div>
+											<input type="text" formControlName="beneficiaryAddress" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Tax ID</label>
+										<input type="text" formControlName="beneficiaryTaxId" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Commercial Register</label>
+										<input type="text" formControlName="beneficiaryCommercialRegister" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary contact name </label>
+										<input type="text" formControlName="beneficiaryContactName" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary contact number</label>
+										<input type="text" formControlName="beneficiaryContactNumber" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary contact e-mail</label>
+										<input type="text" formControlName="beneficiaryContactEmail" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Bank</label>
+										<input type="text" formControlName="beneficiaryBank" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Beneficiary Bank account/iBAN</label>
+										<input type="text" formControlName="beneficiaryBankiBAN" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Beneficiary Invoice Details</h4>
+							<br />
+							<div class="row">
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Customer invoice number </label>
+										<input type="text" formControlName="customerInvoiceNumber" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Total invoice value in EGP</label>
+										<input type="text" formControlName="totalInvoiceValueInEGP" class="form-control">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<input type="checkbox" formControlName="totalInvoiceValueIncludesVAT">
+	
+										<label style="margin-left: 1rem;">Total invoice value includes VAT?</label>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Pay to beneficiary before</label>
+										<div class="cal-icon">
+											<input type="text" formControlName="payToBeneficiaryBefore" class="form-control" name="dp"  (click)="d.toggle()" ngbDatepicker #d="ngbDatepicker">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Total value to be paid to beneficiary</label>
+										<input type="text" formControlName="totalValueToBePaidToBeneficiary" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Supporting documents </h4>
+							<br />
+							<div class="row">
+								<div class="form-group row">
+									<label class="col-form-label col-md-2">PO/Official letter of instructions</label>
+									<div class="col-md-10">
+										<input class="form-control" type="file" formControlName="pO" (change)="captureFilePO($event.target.files)"> 
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-2">Invoice</label>
+									<div class="col-md-10">
+										<input class="form-control" type="file" formControlName="invoice" (change)="captureFileInvoice($event.target.files)">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-2">E-mail confirmation/communication</label>
+									<div class="col-md-10">
+										<input class="form-control" type="file" formControlName="emailConfirmation" (change)="captureFileEmailConfirmation($event.target.files)">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Order Details</h4>
+							<br />
+							<div class="row">
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Deliver before</label>
+										<div class="cal-icon">
+											<input type="text" formControlName="deliverBefore" class="form-control" name="dp"  (click)="d2.toggle()" ngbDatepicker #d2="ngbDatepicker">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>PR/PO ID</label>
+										<input type="text" formControlName="pO_Id" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Project Instructions</label>
+										<input type="text" formControlName="projectInstructions" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Implementation Duration Period</label>
+										<input type="text" formControlName="projectImplementationDuration" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Job site address</label>
+										<input type="text" formControlName="projectSiteAddress" class="form-control">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<input type="checkbox" formControlName="warrantyIncluded">
+	
+										<label style="margin-left: 1rem;">Warranty included?</label>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Warranty Duration</label>
+										<input type="text" formControlName="warrantyDuration" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Quality Certifications</label>
+										<input type="text" formControlName="qualityCertifications" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Safety Requirements</label>
+										<input type="text" formControlName="safetyRequirements" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Other Conditions </label>
+										<input type="text" formControlName="otherConditions" class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-2">Product Specification documents</label>
+									<div class="col-md-10">
+										<input class="form-control" type="file" (change)="captureFileProductSpecificationDocuments($event.target.files)" formControlName="productSpecificationDocuments">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-2">Other Documents</label>
+									<div class="col-md-10">
+										<input class="form-control" type="file" (change)="captureFileOtherDocuments($event.target.files)" formControlName="otherDocuments">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Order Details Items</h4>
+								<div class="table-responsive mt-4">
+									<div>
+										<button type="button" class="btn btn-primary" (click)="addOrderItemClick()">
+											Add Order Item
+										</button>
+									</div>
+
+									<div *ngFor="let orderItem of apRequestForm.get('orderItems')['controls']; let i = index" class="list-group list-group-flush">
+										<div class="list-group-item">
+											<h5 class="card-title">Order Item {{i + 1}}</h5>
+											<div [formGroup]="orderItem" class="form-row">
+												<div class="form-group col-6">
+													<label>Item Name</label>
+													<input type="text" formControlName="item_name" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.item_name.errors }" />
+													<div *ngIf="orderItem.controls.item_name.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.item_name.errors.required">Item name is required</div>
+													</div>
+												</div>
+												<div class="form-group col-6">
+													<label>Item Part Number</label>
+													<input type="text" formControlName="item_part_number" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.item_part_number.errors }" />
+													<div *ngIf="orderItem.controls.item_part_number.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.item_part_number.errors.required">Item part number is required</div>
+													</div>
+												</div>
+											</div>
+											<div [formGroup]="orderItem" class="form-row">
+												<div class="form-group col-6">
+													<label>Item Description</label>
+													<input type="text" formControlName="item_description" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.item_description.errors }" />
+													<div *ngIf="orderItem.controls.item_description.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.item_description.errors.required">Item description is required</div>
+													</div>
+												</div>
+												<div class="form-group col-6">
+													<label>Unit Of Measurement</label>
+													<input type="text" formControlName="unit_of_measurement" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.unit_of_measurement.errors }" />
+													<div *ngIf="orderItem.controls.unit_of_measurement.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.unit_of_measurement.errors.required">Unit Of Measurement is required</div>
+													</div>
+												</div>
+											</div>											
+											<div [formGroup]="orderItem" class="form-row">
+												<div class="form-group col-6">
+													<label>Quantity</label>
+													<input type="text" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.quantity.errors }" />
+													<div *ngIf="orderItem.controls.quantity.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.quantity.errors.required">Quantity is required</div>
+													</div>
+												</div>
+												<div class="form-group col-6">
+													<label>Commodity Type</label>
+													<input type="text" formControlName="commodity_type" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.commodity_type.errors }" />
+													<div *ngIf="orderItem.controls.commodity_type.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.commodity_type.errors.required">Commodity Type is required</div>
+														<div *ngIf="orderItem.controls.commodity_type.errors.orderItem">Email must be a valid email address</div>
+													</div>
+												</div>
+											</div>											
+											<div [formGroup]="orderItem" class="form-row">
+												<div class="form-group col-6">
+													<label>Item Specs</label>
+													<input type="text" formControlName="item_specs" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.item_specs.errors }" />
+													<div *ngIf="orderItem.controls.item_specs.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.item_specs.errors.required">Item Specs is required</div>
+													</div>
+												</div>
+												<div class="form-group col-6">
+													<label>Preferred Brand</label>
+													<input type="text" formControlName="preferred_brand" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.preferred_brand.errors }" />
+													<div *ngIf="orderItem.controls.preferred_brand.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.preferred_brand.errors.required">Preferred Brand is required</div>
+														<div *ngIf="orderItem.controls.preferred_brand.errors.orderItem">Email must be a valid email address</div>
+													</div>
+												</div>
+											</div>											
+											<div [formGroup]="orderItem" class="form-row">
+												<div class="form-group col-6">
+													<label>Preferred Country Of Origin</label>
+													<input type="text" formControlName="preferred_country_of_origin" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.preferred_country_of_origin.errors }" />
+													<div *ngIf="orderItem.controls.preferred_country_of_origin.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.preferred_country_of_origin.errors.required">Preferred Country Of Origin is required</div>
+													</div>
+												</div>
+												<div class="form-group col-6">
+													<label>Notes</label>
+													<input type="text" formControlName="notes" class="form-control" [ngClass]="{ 'is-invalid': orderItem.controls.notes.errors }" />
+													<div *ngIf="orderItem.controls.notes.errors" class="invalid-feedback">
+														<div *ngIf="orderItem.controls.notes.errors.required">Notes is required</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-6" *ngIf="apRequestForm.get('orderItems')['controls'].length > 1">
+												<button type="button" class="btn btn-danger btn-sm pull-right" 
+																	title="Delete Order Item" (click)="removeOrderItemButtonClick(i)">
+													<!-- <span class="glyphicon glyphicon-remove"></span>			 -->
+													Remove Order Item
+												</button>
+											</div>
+										</div>
+									</div>
+									<!-- <table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Item Name</th>
+												<th>Item Part Number</th>
+												<th>Item Description</th>
+												<th>Unit Of Measurement</th>
+												<th>Quantity</th>
+												<th>Commodity Type</th>
+												<th>Item Specs</th>
+												<th>Preferred Brand</th>
+												<th>Preferred Country Of Origin</th>
+												<th>Notes</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input type="text" formControlName="ItemName" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="ItemPartNumber" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="ItemDescription" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="UnitOfMeasurement" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="Quantity" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="CommodityType" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="ItemSpecs" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="PreferredBrand" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="PreferredCountryOfOrigin" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="Notes" class="form-control">
+												</td>
+												<td class="add-remove text-end">
+													<i class="fas fa-plus-circle me-1"></i> <i
+														class="fas fa-minus-circle"></i>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input type="text" formControlName="Item2" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="Quantity2" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="Price2" class="form-control">
+												</td>
+												<td>
+													<input type="text" formControlName="Amount2" class="form-control" disabled>
+												</td>
+												<td class="add-remove text-end">
+													<i class="fas fa-plus-circle me-1"></i> <i
+														class="fas fa-minus-circle"></i>
+												</td>
+											</tr>
+										</tbody>
+									</table> -->
+								</div>
+								<div class="table-responsive mt-4">
+									<table class="table table-stripped table-center table-hover">
+										<thead></thead>
+										<tbody>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td class="text-end">Sub Total</td>
+												<td class="text-end">0</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td class="text-end">Discount</td>
+												<td class="text-end">0</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td class="text-end">Total</td>
+												<td class="text-end">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">AP Request Details </h4>
+							<br />
+							<div class="row">
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Request ID</label>
+										<input type="text" formControlName="requestID" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Request Status </label>
+										<input type="text" formControlName="requestStatus" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>AP Due date</label>
+										<div class="cal-icon">
+											<input type="text" formControlName="apDueDate" class="form-control" name="dp"  (click)="d3.toggle()" ngbDatepicker #d3="ngbDatepicker">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Mediation Fees</label>
+										<div>
+											<input type="text" formControlName="mediationFees" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Sourcing Fees</label>
+										<input type="text" formControlName="sourcingFees" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-4 mt-3">
+									<div class="form-group">
+										<label>Payment Terms </label>
+										<input type="text" formControlName="paymentTerms" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="text-end mt-4">
+					<button type="submit" class="btn btn-primary">Add Account Payable</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Page Wrapper -->

@@ -1,0 +1,94 @@
+<!-- Main Wrapper -->
+        <div class="main-wrapper login-body">
+        
+            <div class="login-wrapper">
+                <div class="container">
+                    <img class="img-fluid logo-dark mb-2" src="assets/img/CashNowLogo1.png" alt="Logo">
+                    
+                    <div class="loginbox">
+                        <div class="login-right">
+                            <div class="login-right-wrap" >
+                                <h1>Register</h1>
+                                <p class="account-subtitle">Access to our dashboard</p>
+                                <!-- Form -->
+                                <form (ngSubmit)="onSubmit()" [formGroup]="registrationRequestForm" >
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Name</label>
+                                        <input class="form-control" type="text"formControlName="companyName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Email Address</label>
+                                        <input class="form-control" type="text" formControlName="companyEmailAddress">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Type</label>
+                                        <select class="form-control" formControlName="companyType" (change)="changeCompanyType($event)" formControlName="companyType">
+                                            <option value="">Choose your Company Type</option>
+                                            <option *ngFor="let companyType of CompanyTypes">{{companyType}}</option>
+                                         </select>                                      
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Year of Establishment</label>
+                                        <input type="text" formControlName="yearOfEstablishment" class="form-control" name="dp"  (click)="d.toggle()" ngbDatepicker #d="ngbDatepicker">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Size</label>
+                                        <input class="form-control" type="text" formControlName="companySize">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Address</label>
+                                        <input class="form-control" type="text"formControlName="companyAddress">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Representative Contact Name</label>
+                                        <input class="form-control" type="text" formControlName="companyRepContactName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Representative Mobile Number</label>
+                                        <input class="form-control" type="text" formControlName="companyRepMobileNumber">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Company Representative Email Address</label>
+                                        <input class="form-control" type="text" formControlName="companyRepEmailAddress">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Interested In</label>
+                                        <select class="form-control" formControlName="interestedIn" (change)="changeInterestedIn($event)" formControlName="interestedIn">
+                                            <option value="">Choose your Interest</option>
+                                            <option *ngFor="let interest of Interests">{{interest}}</option>
+                                        </select>                                    
+                                    </div>
+                                    <div>
+                                        <label class="form-control-label">Password</label>
+                                        <input class="form-control" type="text" formControlName="password">
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="form-control-label">Confirm Password</label>
+                                        <input class="form-control" type="text" formControlName="password">
+                                    </div> -->
+
+                                    <div class="form-group mb-0">
+                                        <button class="btn btn-lg btn-block btn-primary w-100" type="submit">Register</button>
+                                    </div>
+                                </form>
+                                <!-- /Form -->
+                                 
+                                <!--<div class="login-or">
+                                    <span class="or-line"></span>
+                                    <span class="span-or">or</span>
+                                </div> -->
+                                <!-- Social Login -->
+                                <!-- <div class="social-login">
+                                    <span>Register with</span>
+                                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="google"><i class="fab fa-google"></i></a>
+                                </div> -->
+                                <!-- /Social Login -->
+                                <div class="text-center dont-have">Already have an account? <a [routerLink]="'/login-form'">Login</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /Main Wrapper -->
